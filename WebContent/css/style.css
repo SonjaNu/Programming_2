@@ -1,0 +1,16 @@
+table {
+	font-size: 20pt;
+	color: purple;
+	background-color: pink;
+	border-width: 5pt;
+	border-color: purple;
+	border-style: ridge;
+}
+
+th {
+	border-style: double;
+}
+
+td {
+	border-style: double;
+}
