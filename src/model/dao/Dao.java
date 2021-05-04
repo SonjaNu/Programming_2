@@ -169,7 +169,7 @@ public class Dao {
 		sql="UPDATE asiakkaat SET asiakas_id=?, etunimi=?, sukunimi=?, puhelin=?, sposti=? WHERE asiakas_id=?";						  
 		try {
 			con = yhdista();
-			System.out.println("AAAAAAAAA");
+			
 			stmtPrep=con.prepareStatement(sql); 
 			stmtPrep.setInt(1, asiakas.getAsiakas_id());
 			stmtPrep.setString(2, asiakas.getEtunimi());
@@ -177,14 +177,17 @@ public class Dao {
 			stmtPrep.setString(4, asiakas.getPuhelin());
 			stmtPrep.setString(5, asiakas.getSposti());
 			
-			stmtPrep.setString(5, asiakas_id);
+			stmtPrep.setString(6, asiakas_id);
 			stmtPrep.executeUpdate();
 	        con.close();
 		} catch (Exception e) {				
 			e.printStackTrace();
 			paluuArvo=false;
-		}							
-		return paluuArvo;
+		}
+		System.out.println(asiakas.getAsiakas_id());
+		System.out.println(asiakas.getEtunimi());
+		System.out.println(asiakas.getSukunimi());
+		return paluuArvo;		
 	}
 
 	

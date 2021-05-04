@@ -21,6 +21,7 @@
 			
 		</tr>
 		<tr>
+			<th>ID</th>
 			<th>Etunimi</th>
 			<th>Sukunimi</th>
 			<th>Puhelin</th>
@@ -30,6 +31,7 @@
 	</thead>
 	<tbody>
 		<tr>
+			<td><input type="text" name="asiakas_id" id="asiakas_id"></td>
 			<td><input type="text" name="etunimi" id="etunimi"></td>
 			<td><input type="text" name="sukunimi" id="sukunimi"></td>
 			<td><input type="text" name="puhelin" id="puhelin"></td>
@@ -39,6 +41,7 @@
 	</tbody>
 </table>
 <input type="hidden" name="vanhaasiakas_id" id="vanhaasiakas_id">
+
 </form>
 <span id="ilmo"></span>
 
@@ -54,13 +57,14 @@ $(document).ready(function(){
 	//Haetaan muutettavan auton tiedot. Kutsutaan backin GET-metodia ja välitetään kutsun mukana muutettavan tiedon id
 	//GET /autot/haeyksi/rekno
 	
-	$("#tallenna").click(function(){	
+/* 	$("#tallenna").click(function(){	
 	
 		muutaAsiakas();
-	});
+	}); */
 	
-	var rekno = requestURLParam("asiakas_id"); //Funktio löytyy scripts/main.js 	
-	$.ajax({url:"asiakkaat/haeyksi/"+asiakas_id, type:"GET", dataType:"json", success:function(result){	//se, mitä GET palauttaa, asettuu resulttiin (result)
+	var asiakas_id = requestURLParam("asiakas_id"); //Funktio löytyy scripts/main.js 	
+//	$.ajax({url:"/asiakkaat/haeyksi/"+asiakas_id, type:"GET", dataType:"json", success:function(result){	//se, mitä GET palauttaa, asettuu resulttiin (result)
+		$.ajax({url:"http://localhost:8080/DWProjekti_ListausHaku/asiakkaat/haeyksi/"+asiakas_id, type:"GET", dataType:"json", success:function(result){		
 		$("#vanhaasiakas_id").val(result.asiakas_id);	//resultista luetaan asiakas_id, etunimi, sukunimi jne.	
 		$("#asiakas_id").val(result.asiakas_id);	
 		$("#etunimi").val(result.etunimi);
@@ -69,6 +73,7 @@ $(document).ready(function(){
 		$("#sposti").val(result.sposti);	
 		
 	}});
+	
 	
 	
 	$("#tiedot").validate({						
@@ -108,6 +113,7 @@ $(document).ready(function(){
 				email: "Ei kelpaa"
 			}
 		},			
+		
 		submitHandler: function(form) {	
 			paivitaTiedot();
 		}		

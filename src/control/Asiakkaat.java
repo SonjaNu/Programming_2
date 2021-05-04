@@ -27,6 +27,7 @@ public class Asiakkaat extends HttpServlet {
     //GET asiakkaat/haeyksi/asiakas_id
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doGet()");
+	//	String pathInfo = "DWProjekti_ListausHaku/asiakkaat/haeyksi/12346";
 		String pathInfo = request.getPathInfo();	//haetaan kutsun polkutiedot, esim. /aalto			
 		System.out.println("polku: "+pathInfo);	
 //		String hakusana="";
@@ -46,11 +47,11 @@ public class Asiakkaat extends HttpServlet {
 			String asiakas_id = pathInfo.replace("/haeyksi/", ""); //poistetaan polusta "/haeyksi/", jäljelle jää asiakas_id	
 			Asiakas asiakas = dao.etsiAsiakas(asiakas_id);
 			JSONObject JSON = new JSONObject();
+			JSON.put("asiakas_id", asiakas.getAsiakas_id());
 			JSON.put("etunimi", asiakas.getEtunimi());
 			JSON.put("sukunimi", asiakas.getSukunimi());
 			JSON.put("puhelin", asiakas.getPuhelin());
 			JSON.put("sposti", asiakas.getSposti());	
-			JSON.put("asiakas_id", asiakas.getAsiakas_id());	
 			strJSON = JSON.toString();		
 		}else{ //Haetaan hakusanan mukaiset autot
 			String hakusana = pathInfo.replace("/", "");
@@ -62,14 +63,7 @@ public class Asiakkaat extends HttpServlet {
 		out.println(strJSON);		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//Asiakkaan lisääminen
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPost()");
@@ -88,6 +82,7 @@ public class Asiakkaat extends HttpServlet {
 			out.println("{\"response\":0}");  //Asiakkaan lisääminen epäonnistui {"response":0}
 		}		
 	}
+	
 	//Asiakkaan muuttaminen
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
